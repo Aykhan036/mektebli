@@ -1,549 +1,200 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Məktəbli - Məktəb Ləvazimatları Mağazası</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#2563eb',
-                            600: '#1d4ed8',
-                            700: '#1e40af',
-                        },
-                        accent: {
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Smooth Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məktəbli - Məktəb Ləvazimatları Mağazası</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                        },
+                        accent: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-brand-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium flex justify-between items-center max-w-full overflow-hidden">
-        <div class="container mx-auto flex justify-between items-center">
-            <p><i class="fa-solid fa-truck-fast mr-2"></i>50 ₼-dən yuxarı sifarişlərdə Bakı daxili <strong>ÖDƏNİŞSİZ çatdırılma!</strong></p>
-            <div class="hidden md:flex items-center space-x-4 text-xs">
-                <span><i class="fa-solid fa-phone mr-1"></i> +994 (77) 760-6194</span>
-                <span><i class="fa-solid fa-clock mr-1"></i> B.e - B. 09:00 - 20:00</span>
-            </div>
-        </div>
-    </div>
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium flex justify-between items-center max-w-full overflow-hidden">
+        <div class="container mx-auto flex justify-between items-center">
+            <p><i class="fa-solid fa-truck-fast mr-2"></i>50 ₼-dən yuxarı sifarişlərdə Bakı daxili <strong>ÖDƏNİŞSİZ çatdırılma!</strong></p>
+            <div class="hidden md:flex items-center space-x-4 text-xs">
+                <span><i class="fa-solid fa-phone mr-1"></i> +994 (77) 760-6194</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> B.e - B. 09:00 - 20:00</span>
+            </div>
+        </div>
+    </div>
 
-    <!-- MAIN HEADER -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
-        <div class="container mx-auto px-4 py-3 sm:py-4">
-            <div class="flex items-center justify-between gap-4">
-                <!-- LOGO -->
-                <a href="#" onclick="filterCategory('all')" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-graduation-cap text-xl sm:text-2xl"></i>
-                    </div>
-                    <div>
-                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-none">Məktəb<span class="text-brand-600">Dünyası</span></span>
-                        <span class="text-[10px] sm:text-xs font-semibold text-slate-400 tracking-widest uppercase">Onlayn Mağaza</span>
-                    </div>
-                </a>
+    <!-- MAIN HEADER -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="container mx-auto px-4 py-3 sm:py-4">
+            <div class="flex items-center justify-between gap-4">
+                <!-- LOGO -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-graduation-cap text-xl sm:text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-none">Məktəb<span class="text-brand-600">Dünyası</span></span>
+                        <span class="text-[10px] sm:text-xs font-semibold text-slate-400 tracking-widest uppercase">Onlayn Mağaza</span>
+                    </div>
+                </a>
 
-                <!-- SEARCH BAR -->
-                <div class="hidden md:flex flex-1 max-w-lg relative">
-                    <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Məktəb ləvazimatları, dəftər, çanta axtarın..." class="w-full bg-slate-100 border border-transparent focus:border-brand-500 focus:bg-white rounded-xl py-2.5 pl-11 pr-4 text-sm outline-none transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                </div>
+                <!-- SEARCH BAR -->
+                <div class="hidden md:flex flex-1 max-w-lg relative">
+                    <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Məktəb ləvazimatları, dəftər, çanta axtarın..." class="w-full bg-slate-100 border border-transparent focus:border-brand-500 focus:bg-white rounded-xl py-2.5 pl-11 pr-4 text-sm outline-none transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
 
-                <!-- RIGHT ACTIONS (Cart, Login) -->
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <button onclick="openAuthModal()" class="hidden sm:flex items-center space-x-2 text-slate-600 hover:text-brand-600 p-2 rounded-xl hover:bg-slate-50 transition">
-                        <i class="fa-regular fa-user text-lg"></i>
-                        <span class="text-sm font-medium">Daxil ol</span>
-                    </button>
+                <!-- RIGHT ACTIONS -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button onclick="toggleCartDrawer()" class="relative flex items-center space-x-2 bg-brand-50 hover:bg-brand-100 text-brand-700 px-3 sm:px-4 py-2.5 rounded-xl transition font-medium">
+                        <i class="fa-solid fa-cart-shopping text-lg"></i>
+                        <span class="hidden sm:inline text-sm">Səbətim</span>
+                        <span id="cartBadge" class="bg-accent-500 text-slate-900 text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-sm">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                    <!-- CART BUTTON -->
-                    <button onclick="toggleCartDrawer()" class="relative flex items-center space-x-2 bg-brand-50 hover:bg-brand-100 text-brand-700 px-3 sm:px-4 py-2.5 rounded-xl transition font-medium">
-                        <i class="fa-solid fa-cart-shopping text-lg"></i>
-                        <span class="hidden sm:inline text-sm">Səbətim</span>
-                        <span id="cartBadge" class="bg-accent-500 text-slate-900 text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-sm">0</span>
-                    </button>
-                </div>
-            </div>
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow container mx-auto px-4 py-6 space-y-10">
 
-            <!-- MOBILE SEARCH BAR -->
-            <div class="mt-3 md:hidden relative">
-                <input type="text" id="mobileSearchInput" oninput="handleSearch(true)" placeholder="Məhsul axtarın..." class="w-full bg-slate-100 border border-transparent focus:border-brand-500 focus:bg-white rounded-xl py-2 pl-10 pr-4 text-sm outline-none">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-            </div>
-        </div>
+        <!-- HERO BANNER -->
+        <section class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-600 via-brand-700 to-indigo-800 text-white shadow-xl shadow-brand-500/10">
+            <div class="relative z-10 px-6 sm:px-12 py-10 sm:py-16 max-w-2xl space-y-4">
+                <span class="inline-block bg-accent-400 text-slate-900 font-extrabold text-xs uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                    ✨ Yeni Tədris İli Endirimləri
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black leading-tight">
+                    Məktəbə Hazırlıqda Ən Etibarlı Ünvanınız!
+                </h1>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    A-dan Z-yə bütün məktəb ləvazimatları, ortopedik çantalar, keyfiyyətli dəftər və qələmlər xüsusi qiymətlərlə mağazamızda!
+                </p>
+            </div>
+        </section>
 
-        <!-- CATEGORY NAVIGATION BAR -->
-        <nav class="bg-slate-50 border-t border-b border-slate-100 overflow-x-auto no-scrollbar">
-            <div class="container mx-auto px-4 flex whitespace-nowrap space-x-1 sm:space-x-2 py-2" id="categoryNav">
-                <!-- Dynamic categories loaded via JS -->
-            </div>
-        </nav>
-    </header>
+        <!-- PRODUCTS SECTION -->
+        <section id="products-section" class="scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Bütün Məhsullar</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5" id="productCountText">Məhsullar yüklənir...</p>
+                </div>
+            </div>
 
-    <!-- MAIN CONTENT CONTENT CONTAINER -->
-    <main class="flex-grow container mx-auto px-4 py-6 space-y-10">
+            <!-- PRODUCT GRID -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="productsGrid">
+                <!-- Original products -->
+            </div>
+        </section>
 
-        <!-- HERO CAMPAIGN BANNER -->
-        <section class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-600 via-brand-700 to-indigo-800 text-white shadow-xl shadow-brand-500/10">
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-overlay"></div>
-            <div class="relative z-10 px-6 sm:px-12 py-10 sm:py-16 max-w-2xl space-y-4">
-                <span class="inline-block bg-accent-400 text-slate-900 font-extrabold text-xs uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                    ✨ Yeni Tədris İli Endirimləri
-                </span>
-                <h1 class="text-3xl sm:text-5xl font-black leading-tight">
-                    Məktəbə Hazırlıqda Ən Etibarlı Ünvanınız!
-                </h1>
-                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
-                    A-dan Z-yə bütün məktəb ləvazimatları, ortopedik çantalar, keyfiyyətli dəftər və qələmlər xüsusi qiymətlərlə mağazamızda!
-                </p>
-                <div class="pt-2 flex flex-wrap gap-3">
-                    <a href="#products-section" class="bg-accent-500 hover:bg-accent-400 text-slate-900 font-bold px-6 py-3 rounded-xl shadow-lg shadow-accent-500/20 transition-all hover:scale-105 inline-flex items-center gap-2">
-                        <span>İndi Alış-Veriş Et</span>
-                        <i class="fa-solid fa-arrow-right text-sm"></i>
-                    </a>
-                    <a href="#app-promo" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 font-semibold px-5 py-3 rounded-xl transition">
-                        Mobil Tətbiq
-                    </a>
-                </div>
-            </div>
-        </div>
-        </section>
+    </main>
 
-        <!-- QUICK CATEGORIES CARDS -->
-        <section>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Populyar Kateqoriyalar</h2>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" id="quickCategories">
-                <!-- Loaded dynamically -->
-            </div>
-        </section>
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm mt-12 border-t border-slate-800">
+        <div class="container mx-auto px-4 py-8 text-center text-xs text-slate-500">
+            &copy; 2026 Məktəbli. Bütün hüquqlar qorunur.
+        </div>
+    </footer>
 
-        <!-- PRODUCTS SECTION -->
-        <section id="products-section" class="scroll-mt-24">
-            <!-- Filter & Title Bar -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900" id="currentCategoryTitle">Bütün Məhsullar</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5" id="productCountText">Məhsullar yüklənir...</p>
-                </div>
-                <!-- Sort Select -->
-                <div class="flex items-center space-x-2">
-                    <label class="text-xs font-semibold text-slate-500">Sırala:</label>
-                    <select id="sortSelect" onchange="handleSort()" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium outline-none focus:border-brand-500">
-                        <option value="default">Məşhurluğa görə</option>
-                        <option value="low">Qiymət: Ucuzdan bahaya</option>
-                        <option value="high">Qiymət: Bahadan ucuza</option>
-                    </select>
-                </div>
-            </div>
+    <!-- ORIGINAL SCRIPT -->
+    <script>
+        const productsData = [
+            {
+                id: 1,
+                title: "Ortopedik Məktəbli Çantası - Space Hero",
+                category: "çanta",
+                price: 45.00,
+                oldPrice: 55.00,
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop",
+                badge: "Endirim",
+                desc: "Uşaqların onurğa sağlığı üçün xüsusi ortopedik arxalıq."
+            },
+            {
+                id: 2,
+                title: "Faber-Castell Rəngli Qələmlər",
+                category: "qələm",
+                price: 8.90,
+                oldPrice: 10.50,
+                image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop",
+                badge: "Orijinal",
+                desc: "Sınmaya davamlı uclar, canlı və parlaq rənglər."
+            }
+        ];
 
-            <!-- PRODUCT GRID -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="productsGrid">
-                <!-- Dynamic products rendered here -->
-            </div>
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            const countText = document.getElementById('productCountText');
+            grid.innerHTML = '';
 
-            <!-- Empty State -->
-            <div id="noProducts" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-200">
-                <i class="fa-solid fa-box-open text-5xl text-slate-300 mb-3"></i>
-                <h3 class="text-lg font-bold text-slate-700">Axtarışa uyğun məhsul tapılmadı</h3>
-                <p class="text-sm text-slate-400 mt-1">Lütfən başqa açar sözlər istifadə edin və ya filtr parametri dəyişin.</p>
-                <button onclick="resetFilters()" class="mt-4 bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-lg">Filtrləri sıfırla</button>
-            </div>
-        </section>
+            products.forEach(p => {
+                const html = `
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md transition flex flex-col justify-between">
+                        <div class="w-full h-44 bg-slate-50 rounded-xl overflow-hidden mb-3 relative flex items-center justify-center">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                            ${p.badge ? `<span class="absolute top-2 left-2 bg-accent-500 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${p.badge}</span>` : ''}
+                        </div>
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm mb-1">${p.title}</h3>
+                                <p class="text-xs text-slate-500 line-clamp-2 mb-2">${p.desc}</p>
+                            </div>
+                            <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
+                                <span class="text-brand-600 font-extrabold text-base">${p.price} ₼</span>
+                                <span class="text-xs font-bold text-slate-500">${p.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += html;
+            });
+            countText.innerText = `${products.length} məhsul göstərilir`;
+        }
 
-        <!-- APP PROMO BANNER (COMING SOON) -->
-        <section id="app-promo" class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl"></div>
-            <div class="space-y-4 max-w-xl z-10 text-center md:text-left">
-                <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Tezliklə</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Yaxında Mobil Tətbiqimiz Xidmətinizdə Olacaq!</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    "Məktəbli" mobil tətbiqi (iOS & Android) vasitəsilə sifarişlərinizi daha sürətli verə, xüsusi keşbeklər qazana və mağazamızdakı xüsusi endirimlərdən anında xəbərdar ola biləcəksiniz. Saytdakı hesabınız tətbiqlə tam sinxronlaşacaq.
-                </p>
-                <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
-                    <div class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl flex items-center space-x-3 opacity-80 cursor-not-allowed">
-                        <i class="fa-brands fa-apple text-2xl text-white"></i>
-                        <div class="text-left">
-                            <div class="text-[10px] text-slate-400 uppercase">Yaxında</div>
-                            <div class="text-xs font-bold">App Store</div>
-                        </div>
-                    </div>
-                    <div class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl flex items-center space-x-3 opacity-80 cursor-not-allowed">
-                        <i class="fa-brands fa-google-play text-2xl text-emerald-400"></i>
-                        <div class="text-left">
-                            <div class="text-[10px] text-slate-400 uppercase">Yaxında</div>
-                            <div class="text-xs font-bold">Google Play</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="z-10 flex-shrink-0">
-                <div class="w-48 h-48 sm:w-56 sm:h-56 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-3xl p-6 shadow-2xl flex flex-col justify-between transform rotate-3 hover:rotate-0 transition duration-300">
-                    <i class="fa-solid fa-mobile-screen-button text-5xl text-white"></i>
-                    <div>
-                        <p class="text-xs text-white/80 font-medium">Sürətli & Rahat</p>
-                        <p class="text-lg font-bold text-white">1-Kliklə Sifariş</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        renderProducts(productsData);
 
-        <!-- PHYSICAL STORE & CONTACT INFO -->
-        <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Location -->
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-xl flex-shrink-0">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900 text-base">Mağazamız</h4>
-                        <p class="text-sm text-slate-500 mt-1">Qəbələ rayonu, 4 saylı məkətbin yanı. 1 saylı məktəbin yanı. 3 saylı məktəbin yanı (1,3,4 saylı məktəblərin yaxın)</p>
-                        <span class="text-xs font-semibold text-emerald-600 mt-1 inline-block"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Açıqdır (09:00 - 20:00)</span>
-                    </div>
-                </div>
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = productsData.filter(p => p.title.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
 
-                <!-- Contact & Support -->
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-xl flex-shrink-0">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900 text-base">WhatsApp & Əlaqə</h4>
-                        <p class="text-sm text-slate-500 mt-1">Suallarınız var? Bizə birbaşa yazın:</p>
-                        <a href="https://wa.me/994777606194" target="_blank" class="text-xs font-bold text-emerald-600 hover:underline mt-1 inline-block">+994 (77) 760-6194</a>
-                    </div>
-                </div>
-
-                <!-- Guarantee -->
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-accent-50 rounded-2xl flex items-center justify-center text-accent-600 text-xl flex-shrink-0">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900 text-base">Orijinal Keyfiyyət</h4>
-                        <p class="text-sm text-slate-500 mt-1">Bütün məhsullar sertifikatlıdır və uşaq sağlığı üçün tam təhlükəsizdir.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm mt-12 border-t border-slate-800">
-        <div class="container mx-auto px-4 py-10">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 text-white font-bold text-lg mb-3">
-                        <i class="fa-solid fa-graduation-cap text-brand-500"></i>
-                        <span>Məktəbli</span>
-                    </div>
-                    <p class="text-xs leading-relaxed text-slate-400">Məktəb və ofis ləvazimatlarının Bakıda ən böyük onlayn satış platforması. Yüksək keyfiyyət və münasib qiymətlər.</p>
-                </div>
-                <div>
-                    <h5 class="text-white font-bold mb-3">Kateqoriyalar</h5>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#" onclick="filterCategory('dəftər')" class="hover:text-white transition">Dəftərlər və Bloknotlar</a></li>
-                        <li><a href="#" onclick="filterCategory('qələm')" class="hover:text-white transition">Qələm və Qələmdanlar</a></li>
-                        <li><a href="#" onclick="filterCategory('çanta')" class="hover:text-white transition">Məktəbli Çantaları</a></li>
-                        <li><a href="#" onclick="filterCategory('rəsm')" class="hover:text-white transition">Rəsm və Əl İşi</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-white font-bold mb-3">Müştəri Xidməti</h5>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="hover:text-white transition">Çatdırılma Şərtləri</a></li>
-                        <li><a href="#" class="hover:text-white transition">Geri Qaytarma Siyasəti</a></li>
-                        <li><a href="#" class="hover:text-white transition">Tez-tez Verilən Suallar</a></li>
-                        <li><a href="#" class="hover:text-white transition">Bizimlə Əlaqə</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-white font-bold mb-3">Bizə Qoşulun</h5>
-                    <p class="text-xs mb-3">Sosial şəbəkələrdə bizi izləyin:</p>
-                    <div class="flex space-x-3 text-base">
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-tiktok"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
-                &copy; 2026 Məktəbli. Bütün hüquqlar qorunur.
-            </div>
-        </div>
-    </footer>
-
-    <!-- CART SIDEBAR / DRAWER -->
-    <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
-        <!-- Backdrop -->
-        <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
-        
-        <!-- Sliding Panel -->
-        <div id="cartPanel" class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 pointer-events-auto">
-            <!-- Cart Header -->
-            <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-cart-shopping text-brand-600"></i>
-                    <h3 class="font-bold text-slate-900">Səbətim</h3>
-                </div>
-                <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-slate-600 p-1">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Cart Items Container -->
-            <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-3">
-                <!-- Dynamic Cart Items -->
-            </div>
-
-            <!-- Cart Footer -->
-            <div class="p-4 border-t border-slate-100 bg-slate-50 space-y-3">
-                <div class="flex justify-between items-center text-sm font-semibold">
-                    <span class="text-slate-600">Ümumi məbləğ:</span>
-                    <span id="cartTotalPrice" class="text-lg font-bold text-brand-700">0.00 ₼</span>
-                </div>
-                <button onclick="openCheckoutModal()" id="checkoutBtn" disabled class="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-slate-300 text-white font-bold py-3 rounded-xl transition text-sm shadow-md">
-                    Sifarişi Rəsmiləşdir
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- QUICK VIEW MODAL -->
-    <div id="quickViewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 relative overflow-hidden shadow-2xl space-y-4">
-            <button onclick="closeQuickView()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div id="quickViewContent" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Rendered dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- CHECKOUT MODAL -->
-    <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative overflow-hidden shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <button onclick="closeCheckoutModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="text-xl font-bold text-slate-900 border-b pb-3">Sifarişin Tamamlanması</h3>
-            
-            <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Ad və Soyad *</label>
-                    <input type="text" required placeholder="məs: Əli Əliyev" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Telefon Nömrəsi *</label>
-                    <input type="tel" required placeholder="+994 (50) 000-0000" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Çatdırılma Ünvanı (Bakı)*</label>
-                    <textarea required rows="2" placeholder="Küçə, ev nömrəsi, mənzil, merto stansiyası..." class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-2">Ödəniş Üsulu</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="border rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:bg-slate-50 border-brand-500 bg-brand-50/50">
-                            <input type="radio" name="payment" value="cash" checked class="text-brand-600">
-                            <span class="text-xs font-semibold"><i class="fa-solid fa-money-bill-wave text-emerald-600 mr-1"></i> Nağd ödəniş</span>
-                        </label>
-                        <label class="border rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:bg-slate-50">
-                            <input type="radio" name="payment" value="card" class="text-brand-600">
-                            <span class="text-xs font-semibold"><i class="fa-solid fa-credit-card text-brand-600 mr-1"></i> Kartla ödəniş</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center text-sm">
-                    <span>Yekun Məbləğ:</span>
-                    <span id="checkoutTotalText" class="font-bold text-brand-700 text-lg">0.00 ₼</span>
-                </div>
-
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm shadow-md">
-                    Sifarişi Təsdiqlə
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- AUTH MODAL (MOCK) -->
-    <div id="authModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 relative shadow-2xl text-center space-y-4">
-            <button onclick="closeAuthModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mx-auto text-xl">
-                <i class="fa-solid fa-user-lock"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900">Hesaba Giriş</h3>
-            <p class="text-xs text-slate-500">Sifarişləri izləmək üçün daxil olun</p>
-            <input type="email" placeholder="E-poçt ünvanı" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
-            <input type="password" placeholder="Şifrə" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
-            <button onclick="simulateLogin()" class="w-full bg-brand-600 text-white font-bold py-2.5 rounded-xl text-sm">Daxil Ol</button>
-        </div>
-    </div>
-
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-sm">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-        <span id="toastMessage">Məhsul səbətə əlavə edildi!</span>
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // MOCK PRODUCT DATA (IN AZERBAIJAN LANGUAGE)
-        const productsData = [
-            {
-        id: 9,
-        title: "Qələm Oyal",
-        category: "qələm",
-        price: 0.50,
-        oldPrice: 0.70,
-        rating: 5,
-        image: "qelem/oyal.jpg",
-        badge: "Yeni",
-        desc: "Oyal yağ bazlı gel mürəkkəbli keyfiyyətli qələm."
-    },
-            {
-                id: 1,
-                title: "Ortopedik Məktəbli Çantası - Space Hero",
-                category: "çanta",
-                price: 45.00,
-                oldPrice: 55.00,
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop",
-                badge: "Endirim",
-                desc: "Uşaqların onurğa sağlığı üçün xüsusi ortopedik arxalıq, su keçirməz material, reflektorlu zolaqlar."
-            },
-            {
-                id: 2,
-                title: "Dəst: 96 Vərəqli Qalın Dəftər (5 ədəd)",
-                category: "dəftər",
-                price: 4.50,
-                oldPrice: 6.00,
-                rating: 4,
-                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
-                badge: "Top Satış",
-                desc: "A5 formatında, yüksək sıxlıqlı ağ vərəqlər, damalı və xətli seçimləri ilə."
-            },
-            {
-                id: 3,
-                title: "Faber-Castell Rəngli Qələmlər (24 Rəng)",
-                category: "qələm",
-                price: 8.90,
-                oldPrice: 10.50,
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop",
-                badge: "Orijinal",
-                desc: "Sınmaya davamlı uclar, canlı və parlaq rənglər. Rəsm dərsləri üçün mükəmməl."
-            },
-            {
-                id: 4,
-                title: "Akvarel Boya Dəsti + Fırçalar",
-                category: "rəsm",
-                price: 6.20,
-                oldPrice: 0,
-                rating: 4,
-                image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop",
-                badge: null,
-                desc: "18 rəngli zəhərsiz akvarel boya, 3 fərqli ölçüdə fırça hədiyyə."
-            },
-            {
-                id: 5,
-                title: "Məktəbli Başlanğıc Kombo Dəsti",
-                category: "dəst",
-                price: 18.50,
-                oldPrice: 24.00,
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?q=80&w=600&auto=format&fit=crop",
-                badge: "Sərfəli Kombo",
-                desc: "Daxildir: Qələmdan, 10 dəftər, xətkeş dəsti, pozan, yonan, 5 tüklü qələm."
-            },
-            {
-                id: 6,
-                title: "Çoxfunksiyalı 2 Mərtəbəli Qələmdan",
-                category: "qələm",
-                price: 5.50,
-                oldPrice: 7.00,
-                rating: 4,
-                image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=600&auto=format&fit=crop",
-                badge: null,
-                desc: "Geniş tutumlu, zəncirbəndli, davamlı parça material."
-            },
-            {
-                id: 7,
-                title: "Geometriya Xətkeş və Pergel Dəsti",
-                category: "ləvazimat",
-                price: 3.20,
-                oldPrice: 0,
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1585336261026-8f57857820f8?q=80&w=600&auto=format&fit=crop",
-                badge: null,
-                desc: "Metal qutuda 8 parçalı riyaziyyat və geometriya dəsti."
-            },
-            {
-                id: 8,
-                title: "Eko Məktəbli Su Qabı (BPA-Sız) 500ml",
-                category: "ləvazimat",
-                price: 9.90,
-                oldPrice: 12.00,
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=600&auto=format&fit=crop",
-                badge: "Eko",
-                desc: "Sızdırmaz qapaq, zərbəyə davamlı, qoxusuz material."
-            }
-        ];
-
-        const categories = [
-            { id: "all", name: "Bütün Məhsullar", icon: "fa-border-all" },
-            { id: "dəftər", name: "Dəftərlər", icon: "fa-book-open" },
-            { id: "qələm", name: "Qələm və Qələmdanlar", icon: "fa-pen-nib" },
-            { id: "çanta", name: "Məktəbli Çantaları", icon: "fa-bag-shopping" },
-            { id: "rəsm", name: "Rəsm Vərdişləri", icon: "fa-palette" },
-            { id: "ləvazimat", name: "Dərs Ləvazimatları", icon: "fa-ruler-combined" },
-            { id
+        function toggleCartDrawer() {
+            alert("Səbət bölməsi");
+        }
+    </script>
+</body>
+</html>
