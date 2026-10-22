@@ -117,7 +117,7 @@
 
             <!-- DYNAMIC PRODUCT GRID -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="productsGrid">
-                <!-- Products will be dynamically rendered here from Google Sheets -->
+                <!-- Products will be dynamically rendered here -->
             </div>
         </section>
 
@@ -163,70 +163,36 @@
         </div>
     </footer>
 
-    <!-- GOOGLE SHEETS DYNAMIC FETCH SCRIPT -->
+    <!-- SCRIPT: COMBINING VISUAL STUDIO PRODUCTS & GOOGLE SHEETS -->
     <script>
+        // 1. Sizin Visual Studio-da (kodda) əlavə edə biləcəyiniz statik məhsullar
+        let staticProducts = [
+            {
+                ad: "Ortopedik Məktəbli Çantası - Space Hero",
+                qiymet: "45.00",
+                sekil: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop",
+                haqqinda: "Uşaqların onurğa sağlığı üçün xüsusi ortopedik arxalıq."
+            },
+            {
+                ad: "Faber-Castell Rəngli Qələmlər",
+                qiymet: "8.90",
+                sekil: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop",
+                haqqinda: "Sınmaya davamlı uclar, canlı və parlaq rənglər."
+            }
+        ];
+
+        let allProducts = [...staticProducts];
+
+        // 2. Google Sheets-dən məhsulları çəkib birləşdirən hissə
         const sheetID = '1lfp5R0iLgPjejB8ik5EumxPwVx_CvckHcoz00adtqqg';
         const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
 
-        let allProducts = [];
-
-        fetch(sheetURL)
-            .then(res => res.text())
-            .then(data => {
-                const json = JSON.parse(data.substring(47, data.length - 2));
-                const rows = json.table.rows;
-                const grid = document.getElementById('productsGrid');
-                const countText = document.getElementById('productCountText');
-
-                grid.innerHTML = '';
-                allProducts = [];
-
-                rows.forEach((row, index) => {
-                    const ad = row.c[0] ? row.c[0].v : '';
-                    const qiymet = row.c[1] ? row.c[1].v : '';
-                    const sekil = row.c[2] ? row.c[2].v : '';
-                    const haqqinda = row.c[3] ? row.c[3].v : '';
-
-                    if (ad) {
-                        allProducts.push({ ad, qiymet, sekil, haqqinda });
-                        const html = `
-                            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md transition flex flex-col justify-between">
-                                <div class="w-full h-44 bg-slate-50 rounded-xl overflow-hidden mb-3 flex items-center justify-center">
-                                    <img src="${sekil}" alt="${ad}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/200?text=Şəkil+Yoxdur'">
-                                </div>
-                                <div class="flex-grow flex flex-col justify-between">
-                                    <div>
-                                        <h3 class="font-bold text-slate-900 text-sm mb-1">${ad}</h3>
-                                        <p class="text-xs text-slate-500 line-clamp-2 mb-2">${haqqinda}</p>
-                                    </div>
-                                    <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
-                                        <span class="text-brand-600 font-extrabold text-base">${qiymet} AZN</span>
-                                        <a href="https://wa.me/994777606194?text=Salam,%20bu%20məhsul%20haqqında%20məlumat%20almaq%20istəyirəm:%20${encodeURIComponent(ad)}" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1">
-                                            <i class="fa-brands fa-whatsapp"></i> Sifariş
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        grid.innerHTML += html;
-                    }
-                });
-
-                if (countText) {
-                    countText.innerText = `${allProducts.length} məhsul tapıldı`;
-                }
-            })
-            .catch(err => {
-                console.error('Xəta:', err);
-                document.getElementById('productsGrid').innerHTML = '<p class="col-span-full text-center text-red-500 py-10">Məhsullar yüklənərkən xəta baş verdi.</p>';
-            });
-
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allProducts.filter(p => p.ad.toLowerCase().includes(query) || p.haqqinda.toLowerCase().includes(query));
+        function renderProducts(products) {
             const grid = document.getElementById('productsGrid');
+            const countText = document.getElementById('productCountText');
             grid.innerHTML = '';
-            filtered.forEach(p => {
+
+            products.forEach(p => {
                 const html = `
                     <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:shadow-md transition flex flex-col justify-between">
                         <div class="w-full h-44 bg-slate-50 rounded-xl overflow-hidden mb-3 flex items-center justify-center">
@@ -248,6 +214,42 @@
                 `;
                 grid.innerHTML += html;
             });
+
+            if (countText) {
+                countText.innerText = `${products.length} məhsul göstrilir`;
+            }
+        }
+
+        // Başlanğıcda statik məhsulları göstəririk
+        renderProducts(allProducts);
+
+        // Sonradan Google Sheets cədvəlindəki məhsulları da əlavə edirik
+        fetch(sheetURL)
+            .then(res => res.text())
+            .then(data => {
+                const json = JSON.parse(data.substring(47, data.length - 2));
+                const rows = json.table.rows;
+
+                rows.forEach(row => {
+                    const ad = row.c[0] ? row.c[0].v : '';
+                    const qiymet = row.c[1] ? row.c[1].v : '';
+                    const sekil = row.c[2] ? row.c[2].v : '';
+                    const haqqinda = row.c[3] ? row.c[3].v : '';
+
+                    if (ad) {
+                        allProducts.push({ ad, qiymet, sekil, haqqinda });
+                    }
+                });
+
+                renderProducts(allProducts);
+            })
+            .catch(err => console.error('Google Sheets yüklənmə xətası:', err));
+
+        // Axtarış funksiyası
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allProducts.filter(p => p.ad.toLowerCase().includes(query) || p.haqqinda.toLowerCase().includes(query));
+            renderProducts(filtered);
         }
     </script>
 </body>
