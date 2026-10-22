@@ -860,5 +860,43 @@
             }, 3000);
         }
     </script>
+    <!-- Google Sheets İnteqrasiya Kodu -->
+<script>
+  const sheetID = '1lfp5R0iLgPjejB8ik5EumxPwVx_CvckHcoz00adtqqg';
+  const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`;
+
+  fetch(sheetURL)
+    .then(res => res.text())
+    .then(data => {
+      // Google-un qaytardığı JSON formatını təmizləyirik
+      const json = JSON.parse(data.substring(47, data.length - 2));
+      const rows = json.table.rows;
+      
+      const mehsulKonteyner = document.getElementById('mehsullar-siyahisi');
+      if (!mehsulKonteyner) return;
+      
+      mehsulKonteyner.innerHTML = ''; // Köhnə statik məhsulları təmizləyirik
+
+      rows.forEach(row => {
+        const ad = row.c[0] ? row.c[0].v : '';
+        const qiymet = row.c[1] ? row.c[1].v : '';
+        const sekil = row.c[2] ? row.c[2].v : '';
+        const haqqinda = row.c[3] ? row.c[3].v : '';
+
+        if (ad) {
+          const mehsulHTML = `
+            <div class="mehsul-kart">
+              <img src="${sekil}" alt="${ad}" style="max-width: 100%; height: auto;">
+              <h3>${ad}</h3>
+              <p class="qiymet">${qiymet} AZN</p>
+              <p class="haqqinda">${haqqinda}</p>
+            </div>
+          `;
+          mehsulKonteyner.innerHTML += mehsulHTML;
+        }
+      });
+    })
+    .catch(err => console.error('Məhsullar yüklənərkən xəta baş verdi:', err));
+</script>
 </body>
 </html>
