@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Məktəbli - Məktəb Ləvazimatları Mağazası</title>
+    <meta name="description" content="Məktəbli - məktəb ləvazimatları, ortopedik çantalar, dəftər və qələmlər münasib qiymətlərlə.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -18,11 +19,14 @@
                         brand: {
                             50: '#f0f7ff',
                             100: '#e0effe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
                             500: '#2563eb',
                             600: '#1d4ed8',
                             700: '#1e40af',
                         },
                         accent: {
+                            50: '#fefce8',
                             400: '#facc15',
                             500: '#eab308',
                             600: '#ca8a04',
@@ -39,6 +43,7 @@
         /* Custom Smooth Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
@@ -50,10 +55,13 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+        /* Kateqoriya zolağında scrollbar gizlət */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between">
-
+ 
     <!-- TOP ANNOUNCEMENT BAR -->
     <div class="bg-brand-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium flex justify-between items-center max-w-full overflow-hidden">
         <div class="container mx-auto flex justify-between items-center">
@@ -64,35 +72,35 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- MAIN HEADER -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
         <div class="container mx-auto px-4 py-3 sm:py-4">
             <div class="flex items-center justify-between gap-4">
                 <!-- LOGO -->
-                <a href="#" onclick="filterCategory('all')" class="flex items-center space-x-3 group">
+                <a href="#" onclick="filterCategory('all'); return false;" class="flex items-center space-x-3 group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-graduation-cap text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-none">Məktəb<span class="text-brand-600">Dünyası</span></span>
+                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-none">Məktəb<span class="text-brand-600">li</span></span>
                         <span class="text-[10px] sm:text-xs font-semibold text-slate-400 tracking-widest uppercase">Onlayn Mağaza</span>
                     </div>
                 </a>
-
+ 
                 <!-- SEARCH BAR -->
                 <div class="hidden md:flex flex-1 max-w-lg relative">
                     <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Məktəb ləvazimatları, dəftər, çanta axtarın..." class="w-full bg-slate-100 border border-transparent focus:border-brand-500 focus:bg-white rounded-xl py-2.5 pl-11 pr-4 text-sm outline-none transition-all">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
                 </div>
-
+ 
                 <!-- RIGHT ACTIONS (Cart, Login) -->
                 <div class="flex items-center space-x-3 sm:space-x-4">
                     <button onclick="openAuthModal()" class="hidden sm:flex items-center space-x-2 text-slate-600 hover:text-brand-600 p-2 rounded-xl hover:bg-slate-50 transition">
                         <i class="fa-regular fa-user text-lg"></i>
                         <span class="text-sm font-medium">Daxil ol</span>
                     </button>
-
+ 
                     <!-- CART BUTTON -->
                     <button onclick="toggleCartDrawer()" class="relative flex items-center space-x-2 bg-brand-50 hover:bg-brand-100 text-brand-700 px-3 sm:px-4 py-2.5 rounded-xl transition font-medium">
                         <i class="fa-solid fa-cart-shopping text-lg"></i>
@@ -101,14 +109,14 @@
                     </button>
                 </div>
             </div>
-
+ 
             <!-- MOBILE SEARCH BAR -->
             <div class="mt-3 md:hidden relative">
                 <input type="text" id="mobileSearchInput" oninput="handleSearch(true)" placeholder="Məhsul axtarın..." class="w-full bg-slate-100 border border-transparent focus:border-brand-500 focus:bg-white rounded-xl py-2 pl-10 pr-4 text-sm outline-none">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
             </div>
         </div>
-
+ 
         <!-- CATEGORY NAVIGATION BAR -->
         <nav class="bg-slate-50 border-t border-b border-slate-100 overflow-x-auto no-scrollbar">
             <div class="container mx-auto px-4 flex whitespace-nowrap space-x-1 sm:space-x-2 py-2" id="categoryNav">
@@ -116,10 +124,10 @@
             </div>
         </nav>
     </header>
-
-    <!-- MAIN CONTENT CONTENT CONTAINER -->
+ 
+    <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-grow container mx-auto px-4 py-6 space-y-10">
-
+ 
         <!-- HERO CAMPAIGN BANNER -->
         <section class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-600 via-brand-700 to-indigo-800 text-white shadow-xl shadow-brand-500/10">
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-overlay"></div>
@@ -143,9 +151,8 @@
                     </a>
                 </div>
             </div>
-        </div>
         </section>
-
+ 
         <!-- QUICK CATEGORIES CARDS -->
         <section>
             <div class="flex justify-between items-center mb-6">
@@ -155,9 +162,9 @@
                 <!-- Loaded dynamically -->
             </div>
         </section>
-
+ 
         <!-- PRODUCTS SECTION -->
-        <section id="products-section" class="scroll-mt-24">
+        <section id="products-section" class="scroll-mt-32">
             <!-- Filter & Title Bar -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
                 <div>
@@ -166,7 +173,7 @@
                 </div>
                 <!-- Sort Select -->
                 <div class="flex items-center space-x-2">
-                    <label class="text-xs font-semibold text-slate-500">Sırala:</label>
+                    <label for="sortSelect" class="text-xs font-semibold text-slate-500">Sırala:</label>
                     <select id="sortSelect" onchange="handleSort()" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium outline-none focus:border-brand-500">
                         <option value="default">Məşhurluğa görə</option>
                         <option value="low">Qiymət: Ucuzdan bahaya</option>
@@ -174,29 +181,29 @@
                     </select>
                 </div>
             </div>
-
+ 
             <!-- PRODUCT GRID -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="productsGrid">
                 <!-- Dynamic products rendered here -->
             </div>
-
+ 
             <!-- Empty State -->
             <div id="noProducts" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-200">
                 <i class="fa-solid fa-box-open text-5xl text-slate-300 mb-3"></i>
                 <h3 class="text-lg font-bold text-slate-700">Axtarışa uyğun məhsul tapılmadı</h3>
-                <p class="text-sm text-slate-400 mt-1">Lütfən başqa açar sözlər istifadə edin və ya filtr parametri dəyişin.</p>
+                <p class="text-sm text-slate-400 mt-1">Lütfən başqa açar sözlər istifadə edin və ya filtr parametrini dəyişin.</p>
                 <button onclick="resetFilters()" class="mt-4 bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-lg">Filtrləri sıfırla</button>
             </div>
         </section>
-
+ 
         <!-- APP PROMO BANNER (COMING SOON) -->
-        <section id="app-promo" class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+        <section id="app-promo" class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 scroll-mt-32">
             <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl"></div>
             <div class="space-y-4 max-w-xl z-10 text-center md:text-left">
                 <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Tezliklə</span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Yaxında Mobil Tətbiqimiz Xidmətinizdə Olacaq!</h2>
                 <p class="text-slate-300 text-sm leading-relaxed">
-                    "Məktəbli" mobil tətbiqi (iOS & Android) vasitəsilə sifarişlərinizi daha sürətli verə, xüsusi keşbeklər qazana və mağazamızdakı xüsusi endirimlərdən anında xəbərdar ola biləcəksiniz. Saytdakı hesabınız tətbiqlə tam sinxronlaşacaq.
+                    "Məktəbli" mobil tətbiqi (iOS &amp; Android) vasitəsilə sifarişlərinizi daha sürətli verə, xüsusi keşbeklər qazana və mağazamızdakı xüsusi endirimlərdən anında xəbərdar ola biləcəksiniz.
                 </p>
                 <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
                     <div class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl flex items-center space-x-3 opacity-80 cursor-not-allowed">
@@ -219,13 +226,13 @@
                 <div class="w-48 h-48 sm:w-56 sm:h-56 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-3xl p-6 shadow-2xl flex flex-col justify-between transform rotate-3 hover:rotate-0 transition duration-300">
                     <i class="fa-solid fa-mobile-screen-button text-5xl text-white"></i>
                     <div>
-                        <p class="text-xs text-white/80 font-medium">Sürətli & Rahat</p>
+                        <p class="text-xs text-white/80 font-medium">Sürətli &amp; Rahat</p>
                         <p class="text-lg font-bold text-white">1-Kliklə Sifariş</p>
                     </div>
                 </div>
             </div>
         </section>
-
+ 
         <!-- PHYSICAL STORE & CONTACT INFO -->
         <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -236,23 +243,23 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 text-base">Mağazamız</h4>
-                        <p class="text-sm text-slate-500 mt-1">Qəbələ rayonu, 4 saylı məkətbin yanı. 1 saylı məktəbin yanı. 3 saylı məktəbin yanı (1,3,4 saylı məktəblərin yaxın)</p>
-                        <span class="text-xs font-semibold text-emerald-600 mt-1 inline-block"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Açıqdır (09:00 - 20:00)</span>
+                        <p class="text-sm text-slate-500 mt-1">Qəbələ rayonu, 1, 3 və 4 saylı məktəblərin yaxınlığında.</p>
+                        <span id="storeStatus" class="text-xs font-semibold text-emerald-600 mt-1 inline-block"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Açıqdır (09:00 - 20:00)</span>
                     </div>
                 </div>
-
+ 
                 <!-- Contact & Support -->
                 <div class="flex items-start space-x-4">
                     <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-xl flex-shrink-0">
                         <i class="fa-brands fa-whatsapp"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-slate-900 text-base">WhatsApp & Əlaqə</h4>
+                        <h4 class="font-bold text-slate-900 text-base">WhatsApp &amp; Əlaqə</h4>
                         <p class="text-sm text-slate-500 mt-1">Suallarınız var? Bizə birbaşa yazın:</p>
-                        <a href="https://wa.me/994777606194" target="_blank" class="text-xs font-bold text-emerald-600 hover:underline mt-1 inline-block">+994 (77) 760-6194</a>
+                        <a href="https://wa.me/994777606194" target="_blank" rel="noopener" class="text-xs font-bold text-emerald-600 hover:underline mt-1 inline-block">+994 (77) 760-6194</a>
                     </div>
                 </div>
-
+ 
                 <!-- Guarantee -->
                 <div class="flex items-start space-x-4">
                     <div class="w-12 h-12 bg-accent-50 rounded-2xl flex items-center justify-center text-accent-600 text-xl flex-shrink-0">
@@ -260,14 +267,14 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 text-base">Orijinal Keyfiyyət</h4>
-                        <p class="text-sm text-slate-500 mt-1">Bütün məhsullar sertifikatlıdır və uşaq sağlığı üçün tam təhlükəsizdir.</p>
+                        <p class="text-sm text-slate-500 mt-1">Bütün məhsullar sertifikatlıdır və uşaq sağlamlığı üçün tam təhlükəsizdir.</p>
                     </div>
                 </div>
             </div>
         </section>
-
+ 
     </main>
-
+ 
     <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm mt-12 border-t border-slate-800">
         <div class="container mx-auto px-4 py-10">
@@ -277,15 +284,15 @@
                         <i class="fa-solid fa-graduation-cap text-brand-500"></i>
                         <span>Məktəbli</span>
                     </div>
-                    <p class="text-xs leading-relaxed text-slate-400">Məktəb və ofis ləvazimatlarının Bakıda ən böyük onlayn satış platforması. Yüksək keyfiyyət və münasib qiymətlər.</p>
+                    <p class="text-xs leading-relaxed text-slate-400">Məktəb və ofis ləvazimatlarının onlayn satış platforması. Yüksək keyfiyyət və münasib qiymətlər.</p>
                 </div>
                 <div>
                     <h5 class="text-white font-bold mb-3">Kateqoriyalar</h5>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="#" onclick="filterCategory('dəftər')" class="hover:text-white transition">Dəftərlər və Bloknotlar</a></li>
-                        <li><a href="#" onclick="filterCategory('qələm')" class="hover:text-white transition">Qələm və Qələmdanlar</a></li>
-                        <li><a href="#" onclick="filterCategory('çanta')" class="hover:text-white transition">Məktəbli Çantaları</a></li>
-                        <li><a href="#" onclick="filterCategory('rəsm')" class="hover:text-white transition">Rəsm və Əl İşi</a></li>
+                        <li><a href="#" onclick="filterCategory('dəftər'); return false;" class="hover:text-white transition">Dəftərlər</a></li>
+                        <li><a href="#" onclick="filterCategory('qələm'); return false;" class="hover:text-white transition">Qələm və Qələmdanlar</a></li>
+                        <li><a href="#" onclick="filterCategory('çanta'); return false;" class="hover:text-white transition">Məktəbli Çantaları</a></li>
+                        <li><a href="#" onclick="filterCategory('rəsm'); return false;" class="hover:text-white transition">Rəsm və Əl İşi</a></li>
                     </ul>
                 </div>
                 <div>
@@ -294,16 +301,16 @@
                         <li><a href="#" class="hover:text-white transition">Çatdırılma Şərtləri</a></li>
                         <li><a href="#" class="hover:text-white transition">Geri Qaytarma Siyasəti</a></li>
                         <li><a href="#" class="hover:text-white transition">Tez-tez Verilən Suallar</a></li>
-                        <li><a href="#" class="hover:text-white transition">Bizimlə Əlaqə</a></li>
+                        <li><a href="https://wa.me/994777606194" target="_blank" rel="noopener" class="hover:text-white transition">Bizimlə Əlaqə</a></li>
                     </ul>
                 </div>
                 <div>
                     <h5 class="text-white font-bold mb-3">Bizə Qoşulun</h5>
                     <p class="text-xs mb-3">Sosial şəbəkələrdə bizi izləyin:</p>
                     <div class="flex space-x-3 text-base">
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" aria-label="Instagram" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="TikTok" class="w-8 h-8 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center text-white transition"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -312,12 +319,12 @@
             </div>
         </div>
     </footer>
-
+ 
     <!-- CART SIDEBAR / DRAWER -->
     <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
         <!-- Backdrop -->
         <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
-        
+ 
         <!-- Sliding Panel -->
         <div id="cartPanel" class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 pointer-events-auto">
             <!-- Cart Header -->
@@ -326,16 +333,16 @@
                     <i class="fa-solid fa-cart-shopping text-brand-600"></i>
                     <h3 class="font-bold text-slate-900">Səbətim</h3>
                 </div>
-                <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-slate-600 p-1">
+                <button onclick="toggleCartDrawer()" aria-label="Bağla" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-
+ 
             <!-- Cart Items Container -->
             <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-3">
                 <!-- Dynamic Cart Items -->
             </div>
-
+ 
             <!-- Cart Footer -->
             <div class="p-4 border-t border-slate-100 bg-slate-50 space-y-3">
                 <div class="flex justify-between items-center text-sm font-semibold">
@@ -348,11 +355,11 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- QUICK VIEW MODAL -->
     <div id="quickViewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-6 relative overflow-hidden shadow-2xl space-y-4">
-            <button onclick="closeQuickView()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+            <button onclick="closeQuickView()" aria-label="Bağla" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div id="quickViewContent" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -360,61 +367,62 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- CHECKOUT MODAL -->
     <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative overflow-hidden shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <button onclick="closeCheckoutModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+            <button onclick="closeCheckoutModal()" aria-label="Bağla" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-xl font-bold text-slate-900 border-b pb-3">Sifarişin Tamamlanması</h3>
-            
+ 
             <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Ad və Soyad *</label>
-                    <input type="text" required placeholder="məs: Əli Əliyev" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
+                    <label for="coName" class="block text-xs font-bold text-slate-600 mb-1">Ad və Soyad *</label>
+                    <input type="text" id="coName" required placeholder="məs: Əli Əliyev" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
                 </div>
-
+ 
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Telefon Nömrəsi *</label>
-                    <input type="tel" required placeholder="+994 (50) 000-0000" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
+                    <label for="coPhone" class="block text-xs font-bold text-slate-600 mb-1">Telefon Nömrəsi *</label>
+                    <input type="tel" id="coPhone" required placeholder="+994 (50) 000-0000" class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500">
                 </div>
-
+ 
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">Çatdırılma Ünvanı (Bakı)*</label>
-                    <textarea required rows="2" placeholder="Küçə, ev nömrəsi, mənzil, merto stansiyası..." class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500"></textarea>
+                    <label for="coAddress" class="block text-xs font-bold text-slate-600 mb-1">Çatdırılma Ünvanı (Bakı) *</label>
+                    <textarea id="coAddress" required rows="2" placeholder="Küçə, ev nömrəsi, mənzil, metro stansiyası..." class="w-full border border-slate-200 rounded-xl p-2.5 text-sm outline-none focus:border-brand-500"></textarea>
                 </div>
-
+ 
                 <div>
                     <label class="block text-xs font-bold text-slate-600 mb-2">Ödəniş Üsulu</label>
                     <div class="grid grid-cols-2 gap-3">
                         <label class="border rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:bg-slate-50 border-brand-500 bg-brand-50/50">
-                            <input type="radio" name="payment" value="cash" checked class="text-brand-600">
+                            <input type="radio" name="payment" value="Nağd ödəniş" checked class="text-brand-600">
                             <span class="text-xs font-semibold"><i class="fa-solid fa-money-bill-wave text-emerald-600 mr-1"></i> Nağd ödəniş</span>
                         </label>
                         <label class="border rounded-xl p-3 flex items-center space-x-2 cursor-pointer hover:bg-slate-50">
-                            <input type="radio" name="payment" value="card" class="text-brand-600">
+                            <input type="radio" name="payment" value="Kartla ödəniş" class="text-brand-600">
                             <span class="text-xs font-semibold"><i class="fa-solid fa-credit-card text-brand-600 mr-1"></i> Kartla ödəniş</span>
                         </label>
                     </div>
                 </div>
-
+ 
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center text-sm">
                     <span>Yekun Məbləğ:</span>
                     <span id="checkoutTotalText" class="font-bold text-brand-700 text-lg">0.00 ₼</span>
                 </div>
-
+ 
                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm shadow-md">
-                    Sifarişi Təsdiqlə
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Sifarişi Təsdiqlə (WhatsApp)
                 </button>
+                <p class="text-[11px] text-slate-400 text-center">Təsdiqlədikdən sonra sifariş məlumatları WhatsApp vasitəsilə mağazaya göndəriləcək.</p>
             </form>
         </div>
     </div>
-
+ 
     <!-- AUTH MODAL (MOCK) -->
     <div id="authModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 relative shadow-2xl text-center space-y-4">
-            <button onclick="closeAuthModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
+            <button onclick="closeAuthModal()" aria-label="Bağla" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mx-auto text-xl">
@@ -427,28 +435,40 @@
             <button onclick="simulateLogin()" class="w-full bg-brand-600 text-white font-bold py-2.5 rounded-xl text-sm">Daxil Ol</button>
         </div>
     </div>
-
+ 
     <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-sm">
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-sm max-w-[90vw]">
         <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toastMessage">Məhsul səbətə əlavə edildi!</span>
     </div>
-
+ 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // MOCK PRODUCT DATA (IN AZERBAIJAN LANGUAGE)
+        // MAĞAZA PARAMETRLƏRİ
+        const WHATSAPP_NUMBER = '994777606194';
+        const OPEN_HOUR = 9;
+        const CLOSE_HOUR = 20;
+ 
+        // Şəkil tapılmayanda göstərilən boz yer-tutucu
+        const PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480">' +
+            '<rect width="600" height="480" fill="#f1f5f9"/>' +
+            '<text x="300" y="250" font-family="Arial" font-size="28" fill="#94a3b8" text-anchor="middle">Şəkil yoxdur</text></svg>'
+        );
+ 
+        // MƏHSUL SİYAHISI
         const productsData = [
             {
-        id: 9,
-        title: "Qələm Oyal",
-        category: "qələm",
-        price: 0.50,
-        oldPrice: 0.70,
-        rating: 5,
-        image: "qelem/oyal.jpg",
-        badge: "Yeni",
-        desc: "Oyal yağ bazlı gel mürəkkəbli keyfiyyətli qələm."
-    },
+                id: 9,
+                title: "Qələm Oyal",
+                category: "qələm",
+                price: 0.50,
+                oldPrice: 0.70,
+                rating: 5,
+                image: "qelem/oyal.jpg",
+                badge: "Yeni",
+                desc: "Oyal yağ bazlı gel mürəkkəbli keyfiyyətli qələm."
+            },
             {
                 id: 1,
                 title: "Ortopedik Məktəbli Çantası - Space Hero",
@@ -458,7 +478,7 @@
                 rating: 5,
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop",
                 badge: "Endirim",
-                desc: "Uşaqların onurğa sağlığı üçün xüsusi ortopedik arxalıq, su keçirməz material, reflektorlu zolaqlar."
+                desc: "Uşaqların onurğa sağlamlığı üçün xüsusi ortopedik arxalıq, su keçirməz material, reflektorlu zolaqlar."
             },
             {
                 id: 2,
@@ -538,42 +558,82 @@
                 desc: "Sızdırmaz qapaq, zərbəyə davamlı, qoxusuz material."
             }
         ];
-
+ 
         const categories = [
             { id: "all", name: "Bütün Məhsullar", icon: "fa-border-all" },
             { id: "dəftər", name: "Dəftərlər", icon: "fa-book-open" },
             { id: "qələm", name: "Qələm və Qələmdanlar", icon: "fa-pen-nib" },
             { id: "çanta", name: "Məktəbli Çantaları", icon: "fa-bag-shopping" },
-            { id: "rəsm", name: "Rəsm Vərdişləri", icon: "fa-palette" },
+            { id: "rəsm", name: "Rəsm və Əl İşi", icon: "fa-palette" },
             { id: "ləvazimat", name: "Dərs Ləvazimatları", icon: "fa-ruler-combined" },
             { id: "dəst", name: "Dəstlər / Kombo", icon: "fa-boxes-packing" }
         ];
-
-        // STATE MANAGEMENT
+ 
+        // STATE
         let currentCategory = 'all';
         let searchQuery = '';
-        let cart = [];
-
+        let cart = loadCart();
+        let toastTimer = null;
+ 
+        // SƏBƏTİN YADDA SAXLANMASI (səhifə yenilənəndə itməsin)
+        function loadCart() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('mektebli_cart') || '[]');
+                if (!Array.isArray(saved)) return [];
+                // Yalnız hələ də mövcud olan məhsulları saxla, qiyməti cari siyahıdan götür
+                return saved
+                    .map(item => {
+                        const product = productsData.find(p => p.id === item.id);
+                        return product ? { ...product, quantity: Math.max(1, parseInt(item.quantity, 10) || 1) } : null;
+                    })
+                    .filter(Boolean);
+            } catch (e) {
+                return [];
+            }
+        }
+ 
+        function saveCart() {
+            try {
+                localStorage.setItem('mektebli_cart', JSON.stringify(cart.map(i => ({ id: i.id, quantity: i.quantity }))));
+            } catch (e) { /* localStorage əlçatan deyilsə, sakitcə keç */ }
+        }
+ 
         // INITIALIZATION
         window.onload = function() {
             renderCategories();
             renderQuickCategories();
             renderProducts();
             updateCartUI();
+            updateStoreStatus();
         };
-
+ 
+        // MAĞAZANIN AÇIQ/BAĞLI STATUSU (Bakı vaxtı ilə)
+        function updateStoreStatus() {
+            const el = document.getElementById('storeStatus');
+            if (!el) return;
+            let hour = new Date().getHours();
+            try {
+                hour = parseInt(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hour12: false, timeZone: 'Asia/Baku' }).format(new Date()), 10) % 24;
+            } catch (e) { /* köhnə brauzer: yerli saat */ }
+            const open = hour >= OPEN_HOUR && hour < CLOSE_HOUR;
+            el.className = 'text-xs font-semibold mt-1 inline-block ' + (open ? 'text-emerald-600' : 'text-red-500');
+            el.innerHTML = open
+                ? '<i class="fa-solid fa-circle text-[8px] mr-1"></i> Açıqdır (09:00 - 20:00)'
+                : '<i class="fa-solid fa-circle text-[8px] mr-1"></i> Bağlıdır (09:00 - 20:00)';
+        }
+ 
         // RENDER CATEGORY NAVIGATION
         function renderCategories() {
             const nav = document.getElementById('categoryNav');
             nav.innerHTML = categories.map(cat => `
-                <button onclick="filterCategory('${cat.id}')" 
+                <button onclick="filterCategory('${cat.id}')"
                     class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-2 ${currentCategory === cat.id ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-200/60'}">
                     <i class="fa-solid ${cat.icon}"></i>
                     <span>${cat.name}</span>
                 </button>
             `).join('');
         }
-
+ 
         // RENDER QUICK CATEGORIES
         function renderQuickCategories() {
             const container = document.getElementById('quickCategories');
@@ -587,54 +647,51 @@
                 </div>
             `).join('');
         }
-
+ 
         // FILTER CATEGORY
         function filterCategory(catId) {
             currentCategory = catId;
             renderCategories();
             renderProducts();
-            
+ 
             const catObj = categories.find(c => c.id === catId);
             document.getElementById('currentCategoryTitle').innerText = catObj ? catObj.name : 'Məhsullar';
-            
-            // Smooth scroll to products if on mobile
+ 
             document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' });
         }
-
+ 
         // HANDLE SEARCH
         function handleSearch(isMobile = false) {
             const inputId = isMobile ? 'mobileSearchInput' : 'searchInput';
-            searchQuery = document.getElementById(inputId).value.toLowerCase();
+            searchQuery = document.getElementById(inputId).value.toLowerCase().trim();
             renderProducts();
         }
-
+ 
         // HANDLE SORT
         function handleSort() {
             renderProducts();
         }
-
+ 
         // RENDER PRODUCTS GRID
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             const noProd = document.getElementById('noProducts');
             const sortVal = document.getElementById('sortSelect').value;
-
-            // Filter logic
+ 
             let filtered = productsData.filter(p => {
                 const matchesCat = currentCategory === 'all' || p.category === currentCategory;
                 const matchesSearch = p.title.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery);
                 return matchesCat && matchesSearch;
             });
-
-            // Sort logic
+ 
             if (sortVal === 'low') {
                 filtered.sort((a, b) => a.price - b.price);
             } else if (sortVal === 'high') {
                 filtered.sort((a, b) => b.price - a.price);
             }
-
+ 
             document.getElementById('productCountText').innerText = `Cəmi ${filtered.length} məhsul tapıldı`;
-
+ 
             if (filtered.length === 0) {
                 grid.innerHTML = '';
                 noProd.classList.remove('hidden');
@@ -642,28 +699,27 @@
             } else {
                 noProd.classList.add('hidden');
             }
-
+ 
             grid.innerHTML = filtered.map(product => `
                 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                     <div class="relative overflow-hidden bg-slate-50 pt-[80%]">
-                        <img src="${product.image}" alt="${product.title}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="${product.image}" alt="${product.title}" loading="lazy" onerror="this.onerror=null;this.src=PLACEHOLDER;" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         ${product.badge ? `<span class="absolute top-2 left-2 bg-accent-500 text-slate-900 font-extrabold text-[10px] px-2 py-0.5 rounded-lg shadow-sm">${product.badge}</span>` : ''}
-                        
+ 
                         <!-- Quick View Overlay Button -->
-                        <button onclick="openQuickView(${product.id})" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-slate-700 w-8 h-8 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                        <button onclick="openQuickView(${product.id})" aria-label="Ətraflı bax" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-slate-700 w-8 h-8 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity shadow-sm">
                             <i class="fa-regular fa-eye text-xs"></i>
                         </button>
                     </div>
-
+ 
                     <div class="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-3">
                         <div>
-                            <!-- Rating -->
                             <div class="flex items-center space-x-1 text-accent-500 text-[10px] mb-1">
                                 ${Array(product.rating).fill('<i class="fa-solid fa-star"></i>').join('')}
                             </div>
                             <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2 hover:text-brand-600 transition-colors cursor-pointer" onclick="openQuickView(${product.id})">${product.title}</h3>
                         </div>
-
+ 
                         <div>
                             <div class="flex items-baseline space-x-2">
                                 <span class="text-base sm:text-lg font-extrabold text-brand-700">${product.price.toFixed(2)} ₼</span>
@@ -678,66 +734,72 @@
                 </div>
             `).join('');
         }
-
+ 
         // RESET FILTERS
         function resetFilters() {
             currentCategory = 'all';
             searchQuery = '';
             document.getElementById('searchInput').value = '';
             document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('currentCategoryTitle').innerText = 'Bütün Məhsullar';
             renderCategories();
             renderProducts();
         }
-
+ 
         // CART OPERATIONS
         function addToCart(productId) {
             const product = productsData.find(p => p.id === productId);
+            if (!product) return;
             const existingItem = cart.find(item => item.id === productId);
-
+ 
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
                 cart.push({ ...product, quantity: 1 });
             }
-
+ 
             updateCartUI();
             showToast(`"${product.title}" səbətə əlavə edildi!`);
         }
-
+ 
         function changeQuantity(productId, delta) {
             const item = cart.find(i => i.id === productId);
             if (!item) return;
-
+ 
             item.quantity += delta;
             if (item.quantity <= 0) {
                 cart = cart.filter(i => i.id !== productId);
             }
             updateCartUI();
         }
-
+ 
         function removeFromCart(productId) {
             cart = cart.filter(i => i.id !== productId);
             updateCartUI();
         }
-
+ 
+        function getCartTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+ 
         function updateCartUI() {
             const badge = document.getElementById('cartBadge');
             const itemsList = document.getElementById('cartItemsList');
             const totalText = document.getElementById('cartTotalPrice');
             const checkoutBtn = document.getElementById('checkoutBtn');
-
+ 
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
+            const totalPrice = getCartTotal();
+ 
             badge.innerText = totalItems;
             totalText.innerText = `${totalPrice.toFixed(2)} ₼`;
             document.getElementById('checkoutTotalText').innerText = `${totalPrice.toFixed(2)} ₼`;
-
+ 
             if (cart.length === 0) {
                 itemsList.innerHTML = `
                     <div class="text-center py-12 text-slate-400 space-y-2">
                         <i class="fa-solid fa-basket-shopping text-4xl"></i>
-                        <p class="text-sm">Səbətiniz hal-hazırda boşdur.</p>
+                        <p class="text-sm">Səbətiniz hazırda boşdur.</p>
                     </div>
                 `;
                 checkoutBtn.disabled = true;
@@ -745,30 +807,32 @@
                 checkoutBtn.disabled = false;
                 itemsList.innerHTML = cart.map(item => `
                     <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-2xl border border-slate-100">
-                        <img src="${item.image}" alt="${item.title}" class="w-12 h-12 rounded-xl object-cover">
-                        <div class="flex-1 ml-3 mr-2">
+                        <img src="${item.image}" alt="${item.title}" onerror="this.onerror=null;this.src=PLACEHOLDER;" class="w-12 h-12 rounded-xl object-cover">
+                        <div class="flex-1 ml-3 mr-2 min-w-0">
                             <h4 class="text-xs font-bold text-slate-800 line-clamp-1">${item.title}</h4>
                             <span class="text-xs font-extrabold text-brand-600">${(item.price * item.quantity).toFixed(2)} ₼</span>
                         </div>
                         <div class="flex items-center space-x-1.5 bg-white border border-slate-200 rounded-lg p-1">
-                            <button onclick="changeQuantity(${item.id}, -1)" class="w-5 h-5 flex items-center justify-center text-xs font-bold hover:bg-slate-100 rounded">-</button>
+                            <button onclick="changeQuantity(${item.id}, -1)" aria-label="Azalt" class="w-5 h-5 flex items-center justify-center text-xs font-bold hover:bg-slate-100 rounded">-</button>
                             <span class="text-xs font-bold px-1">${item.quantity}</span>
-                            <button onclick="changeQuantity(${item.id}, 1)" class="w-5 h-5 flex items-center justify-center text-xs font-bold hover:bg-slate-100 rounded">+</button>
+                            <button onclick="changeQuantity(${item.id}, 1)" aria-label="Artır" class="w-5 h-5 flex items-center justify-center text-xs font-bold hover:bg-slate-100 rounded">+</button>
                         </div>
-                        <button onclick="removeFromCart(${item.id})" class="ml-2 text-slate-400 hover:text-red-500 p-1">
+                        <button onclick="removeFromCart(${item.id})" aria-label="Sil" class="ml-2 text-slate-400 hover:text-red-500 p-1">
                             <i class="fa-regular fa-trash-can text-xs"></i>
                         </button>
                     </div>
                 `).join('');
             }
+ 
+            saveCart();
         }
-
+ 
         // CART DRAWER TOGGLE
         function toggleCartDrawer() {
             const drawer = document.getElementById('cartDrawer');
             const backdrop = document.getElementById('cartBackdrop');
             const panel = document.getElementById('cartPanel');
-
+ 
             if (drawer.classList.contains('pointer-events-none')) {
                 drawer.classList.remove('pointer-events-none');
                 backdrop.classList.remove('opacity-0');
@@ -779,25 +843,31 @@
                 setTimeout(() => drawer.classList.add('pointer-events-none'), 300);
             }
         }
-
+ 
         // QUICK VIEW MODAL
         function openQuickView(productId) {
             const product = productsData.find(p => p.id === productId);
             if (!product) return;
-
+ 
+            const catObj = categories.find(c => c.id === product.category);
+            const catName = catObj ? catObj.name : product.category;
+ 
             const content = document.getElementById('quickViewContent');
             content.innerHTML = `
                 <div class="bg-slate-50 rounded-2xl p-4 flex items-center justify-center">
-                    <img src="${product.image}" class="max-h-64 object-contain rounded-xl">
+                    <img src="${product.image}" alt="${product.title}" onerror="this.onerror=null;this.src=PLACEHOLDER;" class="max-h-64 object-contain rounded-xl">
                 </div>
                 <div class="flex flex-col justify-between space-y-3">
                     <div>
-                        <span class="text-[10px] font-bold text-brand-600 uppercase tracking-widest">${product.category}</span>
+                        <span class="text-[10px] font-bold text-brand-600 uppercase tracking-widest">${catName}</span>
                         <h2 class="text-lg font-bold text-slate-900 mt-1">${product.title}</h2>
                         <p class="text-xs text-slate-500 mt-2 leading-relaxed">${product.desc}</p>
                     </div>
                     <div>
-                        <div class="text-2xl font-black text-brand-700 mb-3">${product.price.toFixed(2)} ₼</div>
+                        <div class="flex items-baseline space-x-2 mb-3">
+                            <span class="text-2xl font-black text-brand-700">${product.price.toFixed(2)} ₼</span>
+                            ${product.oldPrice ? `<span class="text-sm text-slate-400 line-through">${product.oldPrice.toFixed(2)} ₼</span>` : ''}
+                        </div>
                         <button onclick="addToCart(${product.id}); closeQuickView();" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl text-sm transition">
                             <i class="fa-solid fa-cart-shopping mr-2"></i>Səbətə Əlavə Et
                         </button>
@@ -807,58 +877,96 @@
             document.getElementById('quickViewModal').classList.remove('hidden');
             document.getElementById('quickViewModal').classList.add('flex');
         }
-
+ 
         function closeQuickView() {
             document.getElementById('quickViewModal').classList.add('hidden');
             document.getElementById('quickViewModal').classList.remove('flex');
         }
-
+ 
         // CHECKOUT MODAL
         function openCheckoutModal() {
             toggleCartDrawer();
             document.getElementById('checkoutModal').classList.remove('hidden');
             document.getElementById('checkoutModal').classList.add('flex');
         }
-
+ 
         function closeCheckoutModal() {
             document.getElementById('checkoutModal').classList.add('hidden');
             document.getElementById('checkoutModal').classList.remove('flex');
         }
-
+ 
+        // SİFARİŞ: məlumatlar WhatsApp mesajı kimi mağazaya göndərilir
         function handleCheckoutSubmit(e) {
             e.preventDefault();
+            if (cart.length === 0) return;
+ 
+            const name = document.getElementById('coName').value.trim();
+            const phone = document.getElementById('coPhone').value.trim();
+            const address = document.getElementById('coAddress').value.trim();
+            const payment = document.querySelector('input[name="payment"]:checked').value;
+ 
+            const lines = cart.map((item, i) =>
+                `${i + 1}. ${item.title} — ${item.quantity} x ${item.price.toFixed(2)} ₼ = ${(item.price * item.quantity).toFixed(2)} ₼`
+            );
+ 
+            const message =
+                `Yeni sifariş (Məktəbli saytı)\n\n` +
+                `Ad, soyad: ${name}\n` +
+                `Telefon: ${phone}\n` +
+                `Ünvan: ${address}\n` +
+                `Ödəniş: ${payment}\n\n` +
+                `Məhsullar:\n${lines.join('\n')}\n\n` +
+                `Yekun məbləğ: ${getCartTotal().toFixed(2)} ₼`;
+ 
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'noopener');
+ 
             closeCheckoutModal();
             cart = [];
             updateCartUI();
-            showToast("Təbrik edirik! Sifarişiniz uğurla qəbul olundu. Yaxında əlaqə saxlanılacaq.");
+            document.getElementById('coName').value = '';
+            document.getElementById('coPhone').value = '';
+            document.getElementById('coAddress').value = '';
+            showToast("Sifariş WhatsApp-a hazırlandı. Mesajı göndərməyi unutmayın!");
         }
-
+ 
         // AUTH MODAL
         function openAuthModal() {
             document.getElementById('authModal').classList.remove('hidden');
             document.getElementById('authModal').classList.add('flex');
         }
-
+ 
         function closeAuthModal() {
             document.getElementById('authModal').classList.add('hidden');
             document.getElementById('authModal').classList.remove('flex');
         }
-
+ 
         function simulateLogin() {
             closeAuthModal();
             showToast("Uğurla daxil oldunuz!");
         }
-
+ 
+        // Esc ilə pəncərələri bağla
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeQuickView();
+                closeCheckoutModal();
+                closeAuthModal();
+            }
+        });
+ 
         // TOAST NOTIFICATION
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').innerText = message;
-            
+ 
             toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+            }, 3500);
         }
     </script>
 </body>
 </html>
+ 
